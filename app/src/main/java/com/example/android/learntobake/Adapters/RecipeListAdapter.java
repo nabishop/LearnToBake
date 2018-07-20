@@ -14,6 +14,7 @@ import com.example.android.learntobake.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipeListAdapter extends RecyclerView.Adapter {
@@ -34,8 +35,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View item = inflater.inflate(R.layout.activity_main, parent, false);
-        return new RecipesA;
+        View view = inflater.inflate(R.layout.main_activity_reciple_item, parent, false);
+        return new RecipeListViewHolder(view);
     }
 
     @Override
@@ -43,16 +44,39 @@ public class RecipeListAdapter extends RecyclerView.Adapter {
 
     }
 
+
     @Override
     public int getItemCount() {
-        return 0;
+        if (recipes == null) {
+            return 0;
+        } else {
+            return recipes.size();
+        }
     }
 
-    public class RecipeListViewHolder extends RecyclerView.ViewHolder{
+
+    public void setRecipes(ArrayList<RecipeItem> recipes) {
+        this.recipes = recipes;
+        notifyDataSetChanged();
+    }
+
+    public class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.main_activity_recipe_tv)
         TextView recipeName;
+
+        @BindView(R.id.main_activity_recipe_iv)
         ImageView recipePicture;
 
-        public RecipeListViewHolder(View item){
+        public RecipeListViewHolder(View view) {
+            super(view);
+            view.setOnClickListener(this);
+        }
 
-        }}
+        @Override
+        public void onClick(View v) {
+            recipesAdapterOnClickHandler.onRecipeClick(recipes.get(getAdapterPosition()));
+        }
+    }
+
+
 }
