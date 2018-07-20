@@ -1,9 +1,12 @@
 package com.example.android.learntobake.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RecipeItem implements Serializable {
+public class RecipeItem implements Parcelable {
     private int id;
     private String name;
     private ArrayList<Ingredient> ingredients;
@@ -19,6 +22,15 @@ public class RecipeItem implements Serializable {
         this.steps = steps;
         this.servings = servings;
         this.image = image;
+    }
+
+    protected RecipeItem(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.ingredients = in.readArrayList(Ingredient.class.getClassLoader());
+        this.steps = in.readArrayList(Ingredient.class.getClassLoader());
+        this.servings = in.readInt();
+        this.image = in.readString();
     }
 
     public ArrayList<Ingredient> getIngredients() {
@@ -51,4 +63,32 @@ public class RecipeItem implements Serializable {
                 ", STEPS: " + steps + ", SERVINGS: " + servings + ", IMAGE: " + image;
         return recipe;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeList(ingredients);
+        dest.writeList(steps);
+        dest.writeInt(servings);
+        dest.writeString(image);
+    }
+
+    public static final Parcelable.Creator<RecipeItem> CREATOR = new Parcelable.Creator<RecipeItem>() {
+
+        @Override
+        public RecipeItem createFromParcel(Parcel source) {
+            return new RecipeItem(source);
+        }
+
+        @Override
+        public RecipeItem[] newArray(int size) {
+            return new RecipeItem[size];
+        }
+    };
 }
