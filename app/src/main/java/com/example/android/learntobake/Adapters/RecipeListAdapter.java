@@ -47,7 +47,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter {
         // set ingredient name
         recipeListViewHolder.recipeName.setText(recipes.get(position).getName());
         // set servings
-        recipeListViewHolder.recipeServings.setText(recipes.get(position).getServings());
+        recipeListViewHolder.recipeServings.setText(String.valueOf(recipes.get(position).getServings()));
 
         // try to set image, uses picasso
         if (recipes.get(position).getImage() != null) {
@@ -72,18 +72,19 @@ public class RecipeListAdapter extends RecyclerView.Adapter {
     }
 
     public class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.main_activity_recipe_tv)
         TextView recipeName;
 
-        @BindView(R.id.main_activity_recipe_iv)
         ImageView recipePicture;
 
-        @BindView(R.id.main_activity_recipe_servings_tv)
         TextView recipeServings;
 
         public RecipeListViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
+            recipeName = view.findViewById(R.id.main_activity_recipe_tv);
+            recipePicture = view.findViewById(R.id.main_activity_recipe_iv);
+            recipeServings = view.findViewById(R.id.main_activity_recipe_servings_tv);
+
         }
 
         @Override

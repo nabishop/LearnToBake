@@ -24,8 +24,8 @@ public class SimpleIdlingResource implements IdlingResource {
         this.callback = callback;
     }
 
-    public void setIsIdleNow(AtomicBoolean isIdleNow) {
-        this.isIdleNow = isIdleNow;
+    public void setIsIdleNow(Boolean isIdleNow) {
+        this.isIdleNow.set(isIdleNow);
         if (isIdleNow() && callback != null) {
             callback.onTransitionToIdle();
         }

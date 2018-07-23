@@ -18,7 +18,7 @@ public class Step implements Parcelable {
         this.description = description;
         this.videoURL = videoURL;
         this.thumbnailURL = thumbnailURL;
-}
+    }
 
     protected Step(Parcel in) {
         this.id = in.readInt();
@@ -74,4 +74,9 @@ public class Step implements Parcelable {
             return new Step[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "STEP: ID: " + id + ", DESCRIPTION: " + description + ", SHORT DESCRIPTION: " + shortDescription + ", VIDEO URL: " + videoURL + ", THUMBNAIL URL: " + thumbnailURL;
+    }
 }

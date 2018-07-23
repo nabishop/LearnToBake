@@ -7,37 +7,36 @@ import java.io.Serializable;
 
 public class Ingredient implements Parcelable {
     private double quantity;
-    private String measurement;
-    private String name;
+    private String measure;
+    private String ingredient;
 
-    public Ingredient(double quantity, String measurement, String name) {
+    public Ingredient(double quantity, String measure, String ingredient) {
         this.quantity = quantity;
-        this.measurement = measurement;
-        this.name = name;
+        this.measure = measure;
+        this.ingredient = ingredient;
     }
 
     protected Ingredient(Parcel in) {
         this.quantity = in.readDouble();
-        this.measurement = in.readString();
-        this.name = in.readString();
+        this.measure = in.readString();
+        this.ingredient = in.readString();
     }
 
     public String getName() {
-        return name;
+        return ingredient;
     }
 
     public double getQuantity() {
         return quantity;
     }
 
-    public String getMeasurement() {
-        return measurement;
+    public String getMeasure() {
+        return measure;
     }
 
     @Override
     public String toString() {
-        String ingredient = "INGREDIENT: QUANTITY: " + quantity + ", MEASUREMENT: " + measurement + ", NAME: " + name;
-        return ingredient;
+        return "INGREDIENT: QUANTITY: " + quantity + ", MEASUREMENT: " + measure + ", NAME: " + ingredient;
     }
 
     @Override
@@ -48,8 +47,8 @@ public class Ingredient implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(quantity);
-        dest.writeString(measurement);
-        dest.writeString(name);
+        dest.writeString(measure);
+        dest.writeString(ingredient);
     }
 
     public static final Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
