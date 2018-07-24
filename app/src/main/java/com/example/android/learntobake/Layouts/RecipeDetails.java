@@ -10,8 +10,18 @@ import com.example.android.learntobake.R;
 public class RecipeDetails extends AppCompatActivity {
     private static final String RECIPE_INTENT_KEY = MainActivity.getRecipeIntentKey();
     private static final String RECIPE_BUNDLE_KEY = "saved_recipe";
+    private static final String RECIPE_STEPS_FRAGMENT_BUNDLE_KEY = "bundle_steps";
+    private static final String RECIPE_STEP_FRAGMENT_NUMBER_KEY = "bundle_step_number";
+    private static final String TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT = "recipe-details-overview-fragment";
+    private static final String TAG_RECIPE_DETAILS_STEP_FRAGMENT = "recipe-details-step-fragment";
 
     private RecipeItem currentRecipe;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(RECIPE_BUNDLE_KEY, currentRecipe);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,10 +33,39 @@ public class RecipeDetails extends AppCompatActivity {
         } else {
             currentRecipe = savedInstanceState.getParcelable(RECIPE_BUNDLE_KEY);
         }
-        setUpFragment();
+        setUpFragmentOnCreate();
     }
 
-    private void setUpFragment() {
+
+    private void setUpFragmentOnCreate() {
         setTitle(currentRecipe.getName());
+
+        if (getSupportFragmentManager().findFragmentByTag(TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT) == null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(RECIPE_INTENT_KEY, currentRecipe);
+            RecipeDetailsOverviewFragment recipeDetailsOverviewFragment = new RecipeDetailsOverviewFragment();
+            recipeDetailsOverviewFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_detail_container, recipeDetailsOverviewFragment, TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT)
+                    .commit();
+        }
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, currentRecipe.getSteps());
+            bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, 0);
+            RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
+            recipeDetailsStepFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_detail_steps_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() >= 1) {
+            getSupportFragmentManager().popBackStack();
+        }
+        super.onBackPressed();
     }
 }

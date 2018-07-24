@@ -1,4 +1,9 @@
 package com.example.android.learntobake.Layouts;
 
-public class RecipeDetailsOverviewFragment {
+import android.support.v4.app.Fragment;
+
+public class RecipeDetailsOverviewFragment extends Fragment {
+    public RecipeDetailsOverviewFragment() {
+
+    }
 }
