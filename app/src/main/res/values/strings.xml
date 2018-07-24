@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LearnToBake</string>
+    <string name="details_header_ingredients">Ingredients to Get Before Baking</string>
 </resources>

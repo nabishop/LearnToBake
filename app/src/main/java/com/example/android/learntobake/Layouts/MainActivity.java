@@ -1,5 +1,6 @@
 package com.example.android.learntobake.Layouts;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,9 +38,17 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     // Idling resource for testing
     private SimpleIdlingResource idlingResource;
 
-    // saved instance keys
-    private static final String RECIPLE_LIST_KEY = "recipe_list";
+    // keys
+    private static final String RECIPE_LIST_KEY = "recipe_list";
+    private static final String RECIPE_INTENT_KEY = "recipe_key";
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (recipes != null) {
+            outState.putParcelableArrayList(RECIPE_LIST_KEY, recipes);
+        }
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +65,21 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
 
         // saved instance
         if (savedInstanceState != null) {
-            recipes = savedInstanceState.getParcelableArrayList(RECIPLE_LIST_KEY);
+            System.out.println("Saved instance");
+            recipes = savedInstanceState.getParcelableArrayList(RECIPE_LIST_KEY);
+            System.out.println(recipes);
             recipeListAdapter.setRecipes(recipes);
         } else {
+            System.out.println("getting data");
             getRecipeData();
         }
     }
 
     @Override
     public void onRecipeClick(RecipeItem recipeItem) {
+        Intent launchDetails = new Intent(this, RecipeDetails.class);
+        launchDetails.putExtra(getRecipeIntentKey(), recipeItem);
+        startActivity(launchDetails);
     }
 
     private void handleTabletMode() {
@@ -121,4 +136,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
         Toast.makeText(getBaseContext(), "Error getting recipe data", Toast.LENGTH_LONG).show();
     }
 
+    public static String getRecipeIntentKey() {
+        return RECIPE_INTENT_KEY;
+    }
 }
