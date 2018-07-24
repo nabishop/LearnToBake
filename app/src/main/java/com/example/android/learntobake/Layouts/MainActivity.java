@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.main_screen_title);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     }
 
     private void handleTabletMode() {
-        if (getResources().getBoolean(R.bool.tabletMode)) {
+        if (getResources().getBoolean(R.bool.isTablet)) {
             GridLayoutManager gridLayoutManager;
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 gridLayoutManager = new GridLayoutManager(this, 3);
