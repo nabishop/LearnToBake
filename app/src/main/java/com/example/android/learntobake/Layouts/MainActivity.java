@@ -68,8 +68,12 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
         if (savedInstanceState != null) {
             System.out.println("Saved instance");
             recipes = savedInstanceState.getParcelableArrayList(RECIPE_LIST_KEY);
-            System.out.println(recipes);
-            recipeListAdapter.setRecipes(recipes);
+            if (recipes == null) {
+                getRecipeData();
+            } else {
+                System.out.println(recipes);
+                recipeListAdapter.setRecipes(recipes);
+            }
         } else {
             System.out.println("getting data");
             getRecipeData();

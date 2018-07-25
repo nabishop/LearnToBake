@@ -2,4 +2,5 @@
     <string name="app_name">LearnToBake</string>
     <string name="details_header_ingredients">Ingredients to Get Before Baking</string>
     <string name="main_screen_title">Baking Recipes</string>
+    <string name="ingredient_hyphen">-</string>
 </resources>

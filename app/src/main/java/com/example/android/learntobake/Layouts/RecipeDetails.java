@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.android.learntobake.Adapters.RecipeDetailStepsAdapter;
 import com.example.android.learntobake.Models.RecipeItem;
+import com.example.android.learntobake.Models.Step;
 import com.example.android.learntobake.R;
 
-public class RecipeDetails extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class RecipeDetails extends AppCompatActivity implements RecipeDetailStepsAdapter.RecipesDetailStepsAdapterOnClickHandler {
     private static final String RECIPE_INTENT_KEY = MainActivity.getRecipeIntentKey();
     private static final String RECIPE_BUNDLE_KEY = "saved_recipe";
     private static final String RECIPE_STEPS_FRAGMENT_BUNDLE_KEY = "bundle_steps";
@@ -67,5 +71,36 @@ public class RecipeDetails extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public void onStepClick(ArrayList<Step> stepsList, int stepIndex) {
+        if (currentRecipe != null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(RECIPE_INTENT_KEY, stepsList);
+            bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
+            int containerId = R.id.recipe_detail_container;
+            if (getResources().getBoolean(R.bool.isTablet)) {
+                /*
+                containerId = R.id.right_container;
+                RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+                recipeStepDetailFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(containerId, recipeStepDetailFragment, TAG_RECIPE_DETAIL_STEP_FRAGMENT)
+                        .commit();
+                return;
+                */
+            }
+            /*
+            if (getSupportFragmentManager().findFragmentByTag(TAG_RECIPE_DETAIL_STEP_FRAGMENT) == null) {
+                RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+                recipeStepDetailFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(containerId, recipeStepDetailFragment, TAG_RECIPE_DETAIL_STEP_FRAGMENT)
+                        .addToBackStack("recipe")
+                        .commit();
+            }
+            */
+        }
     }
 }
