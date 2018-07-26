@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
 
     private void handleTabletMode() {
         if (getResources().getBoolean(R.bool.isTablet)) {
+            System.out.println("Tablet mode");
             GridLayoutManager gridLayoutManager;
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 gridLayoutManager = new GridLayoutManager(this, 3);
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
             }
             recipeListRecyclerView.setLayoutManager(gridLayoutManager);
         } else {
+            System.out.println("Not tablet mode");
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recipeListRecyclerView.setLayoutManager(linearLayoutManager);
         }
