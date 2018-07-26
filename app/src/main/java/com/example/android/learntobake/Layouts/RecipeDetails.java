@@ -72,7 +72,6 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
         if (getSupportFragmentManager().getBackStackEntryCount() >= 1) {
             getSupportFragmentManager().popBackStack();
         }
-        super.onBackPressed();
     }
 
     @Override
