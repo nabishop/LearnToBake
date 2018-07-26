@@ -51,4 +51,8 @@ public class RecipeDetailIngredientsAdapter extends RecyclerView.Adapter<RecipeD
             ingrdientMeasurementTextView = itemView.findViewById(R.id.ingredient_view_measurement);
         }
     }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 }

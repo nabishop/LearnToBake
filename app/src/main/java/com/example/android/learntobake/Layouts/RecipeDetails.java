@@ -50,6 +50,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             RecipeDetailsOverviewFragment recipeDetailsOverviewFragment = new RecipeDetailsOverviewFragment();
             recipeDetailsOverviewFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
+                    .addToBackStack("Details_Fragment")
                     .replace(R.id.recipe_detail_container, recipeDetailsOverviewFragment, TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT)
                     .commit();
         }
@@ -60,6 +61,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
             recipeDetailsStepFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
+                    .addToBackStack("Recipe_Steps_fragment")
                     .replace(R.id.recipe_detail_steps_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
                     .commit();
         }
@@ -80,27 +82,6 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             bundle.putParcelableArrayList(RECIPE_INTENT_KEY, stepsList);
             bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
             int containerId = R.id.recipe_detail_container;
-            if (getResources().getBoolean(R.bool.isTablet)) {
-                /*
-                containerId = R.id.right_container;
-                RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
-                recipeStepDetailFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(containerId, recipeStepDetailFragment, TAG_RECIPE_DETAIL_STEP_FRAGMENT)
-                        .commit();
-                return;
-                */
-            }
-            /*
-            if (getSupportFragmentManager().findFragmentByTag(TAG_RECIPE_DETAIL_STEP_FRAGMENT) == null) {
-                RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
-                recipeStepDetailFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(containerId, recipeStepDetailFragment, TAG_RECIPE_DETAIL_STEP_FRAGMENT)
-                        .addToBackStack("recipe")
-                        .commit();
-            }
-            */
         }
     }
 }
