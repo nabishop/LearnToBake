@@ -49,7 +49,9 @@ public class RecipeDetailsOverviewFragment extends Fragment {
             currentRecipe = savedInstanceState.getParcelable(SAVED_INSTANCE_RECIPE_KEY);
         } else {
             currentRecipe = getArguments().getParcelable(MainActivity.getRecipeIntentKey());
+            System.out.println("CURRENT RECIPE " + currentRecipe);
         }
+        getActivity().setTitle(currentRecipe.getName());
 
         checkBox = root.findViewById(R.id.got_all_ingredients_checkbox);
         restoreCheckedValue();
