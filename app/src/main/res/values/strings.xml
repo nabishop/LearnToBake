@@ -4,4 +4,6 @@
     <string name="main_screen_title">Baking Recipes</string>
     <string name="ingredient_hyphen">-</string>
     <string name="ingredientsHeader">Ingredients</string>
+    <string name="previous_step_step_details_button">Previous Step</string>
+    <string name="next_step_step_details_button">Next Step</string>
 </resources>
