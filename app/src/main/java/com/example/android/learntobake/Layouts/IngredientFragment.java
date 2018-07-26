@@ -26,9 +26,9 @@ public class IngredientFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.ingredients_activity, container, false);
-        getActivity().setTitle("Ingredients");
         Bundle bundle = getArguments();
         RecipeItem recipeItem = bundle.getParcelable(RecipeDetailsOverviewFragment.getSavedInstanceRecipeKey());
+        getActivity().setTitle("Ingredients for " + recipeItem.getName());
         scrollView = root.findViewById(R.id.ingredients_scrollview);
         recyclerView = root.findViewById(R.id.ingredient_view_list_rv);
         recipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter();
