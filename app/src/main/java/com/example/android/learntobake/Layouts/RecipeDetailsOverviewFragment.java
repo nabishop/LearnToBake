@@ -65,9 +65,9 @@ public class RecipeDetailsOverviewFragment extends Fragment {
         IngredientFragment ingredientFragment = new IngredientFragment();
         ingredientFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.addToBackStack("Recipe_Details_Overview_Fragment");
         fragmentTransaction.add(R.id.recipe_detail_container, ingredientFragment);
         fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack("Recipe_Details_Overview_Fragment");
     }
 
     public static String getSavedInstanceRecipeKey() {

@@ -50,8 +50,8 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             RecipeDetailsOverviewFragment recipeDetailsOverviewFragment = new RecipeDetailsOverviewFragment();
             recipeDetailsOverviewFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .addToBackStack("Details_Fragment")
                     .replace(R.id.recipe_detail_container, recipeDetailsOverviewFragment, TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT)
+                    .addToBackStack("Details_Fragment")
                     .commit();
         }
         if (getResources().getBoolean(R.bool.isTablet)) {
@@ -61,8 +61,8 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
             recipeDetailsStepFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .addToBackStack("Recipe_Steps_fragment")
                     .replace(R.id.recipe_detail_steps_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
+                    .addToBackStack("Recipe_Steps_fragment")
                     .commit();
         }
     }
@@ -71,6 +71,8 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() >= 1) {
             getSupportFragmentManager().popBackStack();
+        }else{
+            super.onBackPressed();
         }
     }
 
