@@ -1,6 +1,7 @@
 package com.example.android.learntobake.Layouts;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,9 @@ public class RecipeDetailsOverviewFragment extends Fragment {
 
     private RecipeItem currentRecipe;
 
+    CheckBox checkBox;
+    private boolean checked = false;
+
     public RecipeDetailsOverviewFragment() {
     }
 
@@ -41,19 +45,15 @@ public class RecipeDetailsOverviewFragment extends Fragment {
         recyclerViewSteps.setAdapter(stepsAdapter);
         recyclerViewSteps.setLayoutManager(linearLayoutManager);
 
-        TextView ingredientTextView = root.findViewById(R.id.fragment_recipe_details_ingredient_text);
-        ingredientTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchIngredientsFragment();
-            }
-        });
-
         if (savedInstanceState != null) {
             currentRecipe = savedInstanceState.getParcelable(SAVED_INSTANCE_RECIPE_KEY);
         } else {
             currentRecipe = getArguments().getParcelable(MainActivity.getRecipeIntentKey());
         }
+
+        checkBox = root.findViewById(R.id.got_all_ingredients_checkbox);
+        restoreCheckedValue();
+        setOnClickListeners(root);
 
         stepsAdapter.setSteps(currentRecipe.getSteps());
         return root;
@@ -77,5 +77,28 @@ public class RecipeDetailsOverviewFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable(SAVED_INSTANCE_RECIPE_KEY, currentRecipe);
+    }
+
+    public void setOnClickListeners(View root) {
+        TextView ingredientTextView = root.findViewById(R.id.fragment_recipe_details_ingredient_text);
+        ingredientTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchIngredientsFragment();
+            }
+        });
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checked = !checked;
+                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putBoolean("checkBox " + currentRecipe.getName(), checked).apply();
+            }
+        });
+    }
+
+    private void restoreCheckedValue() {
+        checked = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("checkBox " + currentRecipe.getName(), false);
+        checkBox.setChecked(checked);
     }
 }
