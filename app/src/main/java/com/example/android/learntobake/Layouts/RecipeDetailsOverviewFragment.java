@@ -65,12 +65,17 @@ public class RecipeDetailsOverviewFragment extends Fragment {
         IngredientFragment ingredientFragment = new IngredientFragment();
         ingredientFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.recipe_detail_container, ingredientFragment);
+        fragmentTransaction.replace(R.id.recipe_detail_container, ingredientFragment);
         fragmentTransaction.commit();
         fragmentTransaction.addToBackStack("Recipe_Details_Overview_Fragment");
     }
 
     public static String getSavedInstanceRecipeKey() {
         return SAVED_INSTANCE_RECIPE_KEY;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(SAVED_INSTANCE_RECIPE_KEY, currentRecipe);
     }
 }
