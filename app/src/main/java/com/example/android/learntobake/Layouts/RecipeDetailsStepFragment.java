@@ -50,7 +50,7 @@ public class RecipeDetailsStepFragment extends Fragment {
     private ArrayList<Step> steps;
     private Step currentStep;
     private int stepIndex;
-    private long videoPosition = 0;
+    private long videoPosition;
 
     private SimpleExoPlayerView exoPlayerView;
     private SimpleExoPlayer exoPlayer;
@@ -225,6 +225,7 @@ public class RecipeDetailsStepFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (exoPlayer != null) {
+            videoPosition = exoPlayer.getCurrentPosition();
             exoPlayerReleaseHelper();
         }
     }

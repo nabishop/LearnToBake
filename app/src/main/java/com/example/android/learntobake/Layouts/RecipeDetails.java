@@ -83,4 +83,6 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             int containerId = R.id.recipe_detail_container;
         }
     }
+
+
 }
