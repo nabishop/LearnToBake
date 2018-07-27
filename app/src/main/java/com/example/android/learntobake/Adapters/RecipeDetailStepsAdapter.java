@@ -26,7 +26,7 @@ public class RecipeDetailStepsAdapter extends RecyclerView.Adapter<RecipeDetailS
 
     @Override
     public void onBindViewHolder(@NonNull RecipesDetailStepsAdapterViewHolder holder, int position) {
-        holder.stepNumberTextView.setText(String.valueOf(position));
+        holder.stepNumberTextView.setText(String.valueOf(position + 1));
         holder.stepNameTextView.setText(steps.get(position).getShortDescription());
     }
 
