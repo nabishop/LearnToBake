@@ -209,6 +209,7 @@ public class RecipeDetailsStepFragment extends Fragment {
     }
 
     private void exoPlayerReleaseHelper() {
+        videoPosition = exoPlayer.getCurrentPosition();
         exoPlayer.stop();
         exoPlayer.release();
     }
@@ -225,7 +226,6 @@ public class RecipeDetailsStepFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (exoPlayer != null) {
-            videoPosition = exoPlayer.getCurrentPosition();
             exoPlayerReleaseHelper();
         }
     }
