@@ -86,14 +86,10 @@ public class RecipeDetailsStepFragment extends Fragment {
                 exoPlayerView.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "No Video Available for Step " + stepIndex, Toast.LENGTH_LONG).show();
             }
-
-            if (!getResources().getBoolean(R.bool.isTablet)) {
-                Button previousButton = root.findViewById(R.id.step_details_back_button);
-                Button nextButton = root.findViewById(R.id.step_details_next_button);
-                setButtonOnClickListener(previousButton, -1);
-                setButtonOnClickListener(nextButton, 1);
-            }
-
+            Button previousButton = root.findViewById(R.id.step_details_back_button);
+            Button nextButton = root.findViewById(R.id.step_details_next_button);
+            setButtonOnClickListener(previousButton, -1);
+            setButtonOnClickListener(nextButton, 1);
         } else {
             System.out.println("Steps are null");
         }
@@ -105,16 +101,23 @@ public class RecipeDetailsStepFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Setting onclick listners for button");
-                if (stepIndex >= 0) {
+                if (stepIndex > 0 || (stepIndex == 0 && amount > 0)) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList(RecipeDetails.RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, steps);
                     bundle.putInt(RecipeDetails.RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex + amount);
                     RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
                     recipeDetailsStepFragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.recipe_detail_container, recipeDetailsStepFragment, RecipeDetails.TAG_RECIPE_DETAILS_STEP_FRAGMENT)
-                            .addToBackStack(null)
-                            .commit();
+                    if (getResources().getBoolean(R.bool.isTablet)) {
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.recipe_detail_steps_container, recipeDetailsStepFragment, RecipeDetails.TAG_RECIPE_DETAILS_STEP_FRAGMENT)
+                                .addToBackStack(null)
+                                .commit();
+                    } else {
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.recipe_detail_container, recipeDetailsStepFragment, RecipeDetails.TAG_RECIPE_DETAILS_STEP_FRAGMENT)
+                                .addToBackStack(null)
+                                .commit();
+                    }
                 } else {
                     if (amount > 0) {
                         Toast.makeText(getContext(), "Already at First Step", Toast.LENGTH_SHORT).show();
