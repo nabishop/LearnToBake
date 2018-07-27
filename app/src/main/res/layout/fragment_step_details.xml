@@ -10,6 +10,7 @@
     android:paddingTop="10dp">
 
     <LinearLayout
+        android:id="@+id/step_details_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -53,6 +54,7 @@
                 android:textColor="@color/colorWhite" />
 
             <Button
+                android:id="@+id/step_details_next_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"

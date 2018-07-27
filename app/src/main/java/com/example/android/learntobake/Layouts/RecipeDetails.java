@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class RecipeDetails extends AppCompatActivity implements RecipeDetailStepsAdapter.RecipesDetailStepsAdapterOnClickHandler {
     private static final String RECIPE_INTENT_KEY = MainActivity.getRecipeIntentKey();
     private static final String RECIPE_BUNDLE_KEY = "saved_recipe";
-    private static final String RECIPE_STEPS_FRAGMENT_BUNDLE_KEY = "bundle_steps";
-    private static final String RECIPE_STEP_FRAGMENT_NUMBER_KEY = "bundle_step_number";
-    private static final String TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT = "recipe-details-overview-fragment";
-    private static final String TAG_RECIPE_DETAILS_STEP_FRAGMENT = "recipe-details-step-fragment";
+    public static final String RECIPE_STEPS_FRAGMENT_BUNDLE_KEY = "bundle_steps";
+    public static final String RECIPE_STEP_FRAGMENT_NUMBER_KEY = "bundle_step_number";
+    public static final String TAG_RECIPE_DETAILS_OVERVIEW_FRAGMENT = "recipe-details-overview-fragment";
+    public static final String TAG_RECIPE_DETAILS_STEP_FRAGMENT = "recipe-details-step-fragment";
 
     private RecipeItem currentRecipe;
 
@@ -69,8 +69,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() >= 1) {
             getSupportFragmentManager().popBackStack();
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
