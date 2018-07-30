@@ -36,6 +36,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -79,6 +81,8 @@ public class RecipeDetailsStepFragment extends Fragment {
         if (steps != null) {
             currentStep = steps.get(stepIndex);
             description.setText(currentStep.getDescription());
+            TextView header = root.findViewById(R.id.step_details_step_header);
+            header.setText(steps.get(stepIndex).getShortDescription());
             putThumbnailIntoArtwork();
 
             videoURL = currentStep.getVideoURL();

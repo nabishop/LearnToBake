@@ -78,9 +78,19 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
     public void onStepClick(ArrayList<Step> stepsList, int stepIndex) {
         if (currentRecipe != null) {
             Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList(RECIPE_INTENT_KEY, stepsList);
+            bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, stepsList);
             bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
-            int containerId = R.id.recipe_detail_container;
+            if (getResources().getBoolean(R.bool.isTablet)) {
+                RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
+                recipeDetailsStepFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.recipe_detail_steps_container,
+                        recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT).commit();
+            } else {
+                RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
+                recipeDetailsStepFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.recipe_detail_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
+                        .addToBackStack("new step").commit();
+            }
         }
     }
 

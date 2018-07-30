@@ -27,7 +27,7 @@
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/step_details_exoplayer_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:layout_marginBottom="15dp" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:textSize="13sp"
+            android:textSize="18sp"
             tools:text="Here we have to put a bunch of food in the oven and wait for a super long time and then it will be done" />
 
         <LinearLayout
