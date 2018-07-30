@@ -17,22 +17,14 @@ import com.example.android.learntobake.Models.RecipeItem;
 import com.example.android.learntobake.R;
 
 public class IngredientFragment extends Fragment {
-
-    private RecipeDetailIngredientsAdapter recipeDetailIngredientsAdapter;
-    private ScrollView scrollView;
-    private RecyclerView recyclerView;
-    private RecipeItem recipeItem;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.ingredients_activity, container, false);
         Bundle bundle = getArguments();
         RecipeItem recipeItem = bundle.getParcelable(RecipeDetailsOverviewFragment.getSavedInstanceRecipeKey());
-        getActivity().setTitle("Ingredients for " + recipeItem.getName());
-        scrollView = root.findViewById(R.id.ingredients_scrollview);
-        recyclerView = root.findViewById(R.id.ingredient_view_list_rv);
-        recipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter();
+        RecyclerView recyclerView = root.findViewById(R.id.ingredient_view_list_rv);
+        RecipeDetailIngredientsAdapter recipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter();
         recipeDetailIngredientsAdapter.setIngredients(recipeItem.getIngredients());
         recyclerView.setAdapter(recipeDetailIngredientsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
