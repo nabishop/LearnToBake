@@ -7,4 +7,6 @@
     <string name="previous_step_step_details_button">Previous Step</string>
     <string name="next_step_step_details_button">Next Step</string>
     <string name="steps_header">Steps</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
