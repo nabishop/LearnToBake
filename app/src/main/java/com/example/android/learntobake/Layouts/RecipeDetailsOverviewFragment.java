@@ -48,6 +48,8 @@ public class RecipeDetailsOverviewFragment extends Fragment {
 
         if (savedInstanceState != null) {
             currentRecipe = savedInstanceState.getParcelable(SAVED_INSTANCE_RECIPE_KEY);
+
+            //start widget update
             BakeWidgetService.startUpdateService(getContext(), currentRecipe);
         } else {
             currentRecipe = getArguments().getParcelable(MainActivity.getRecipeIntentKey());

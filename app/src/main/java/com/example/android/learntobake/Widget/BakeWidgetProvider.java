@@ -29,9 +29,14 @@ public class BakeWidgetProvider extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.bake_widget_provider);
+        if (recipeItem == null) {
+            views.setTextViewText(R.id.widget_good_name, "Click Me to Launch the App");
+        } else {
+            views.setTextViewText(R.id.widget_good_name, recipeItem.getName());
+        }
 
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 10, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_good_name, pendingIntent);
 
         Intent intent1 = new Intent(context, IngredientsWidgetService.class);
@@ -64,7 +69,7 @@ public class BakeWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, BakeWidgetProvider.class));
-        if (intent.getAction().equals(BakeWidgetService.ACTION_INTENT)) {
+        if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
             recipeItem = intent.getParcelableExtra(BakeWidgetService.KEY_WIDGET_RECIPE_ITEM);
         }
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list_view);
