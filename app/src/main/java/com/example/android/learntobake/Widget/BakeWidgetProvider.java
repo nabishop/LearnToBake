@@ -6,7 +6,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import com.example.android.learntobake.Layouts.MainActivity;
 import com.example.android.learntobake.Layouts.RecipeDetails;
@@ -31,13 +34,18 @@ public class BakeWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.bake_widget_provider);
         if (recipeItem == null) {
             views.setTextViewText(R.id.widget_good_name, "Click Me to Launch the App");
+            Intent intent = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 10, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.widget_good_name, pendingIntent);
         } else {
             views.setTextViewText(R.id.widget_good_name, recipeItem.getName());
+            views.setViewVisibility(R.id.widget_ingredients_header, View.VISIBLE);
+            Intent intent = new Intent(context, RecipeDetails.class);
+            intent.putExtra(MainActivity.getRecipeIntentKey(), recipeItem);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 10, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.widget_good_name, pendingIntent);
         }
 
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 10, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.widget_good_name, pendingIntent);
 
         Intent intent1 = new Intent(context, IngredientsWidgetService.class);
         intent1.putExtra(BakeWidgetService.KEY_WIDGET_RECIPE_ITEM, recipeItem);

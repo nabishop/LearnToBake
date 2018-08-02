@@ -38,7 +38,9 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
         } else {
             currentRecipe = savedInstanceState.getParcelable(RECIPE_BUNDLE_KEY);
         }
+        // Widget Update
         BakeWidgetService.startUpdateService(getApplicationContext(), currentRecipe);
+
         setUpFragmentOnCreate();
     }
 

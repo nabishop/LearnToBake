@@ -4,33 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="5dp"
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/ingredient_view_amount"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/ingredient_view_amount_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:paddingRight="5dp"
-        android:textSize="20sp"
+        android:textSize="12sp"
         tools:text="3.0" />
 
     <TextView
-        android:id="@+id/ingredient_view_measurement"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/ingredient_view_measurement_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:paddingRight="5dp"
-        android:textSize="20sp"
+        android:textSize="12sp"
         tools:text="TBSLP" />
 
     <TextView
-        android:id="@+id/ingredient_view_name"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/ingredient_view_name_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
         tools:text="Butter is very good i want it to eat nums kkk kkksd sdsjdkjasjdi askdjasjddaksjdksajdk askdjkasjdkja asd sdasd" />
 
 </LinearLayout>

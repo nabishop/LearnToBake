@@ -2,8 +2,10 @@ package com.example.android.learntobake.Widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.TextView;
 
 import com.example.android.learntobake.Layouts.MainActivity;
 import com.example.android.learntobake.Models.RecipeItem;
@@ -27,13 +29,6 @@ public class IngredientsWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.bake_widget_provider);
-            if (recipeItem != null) {
-                remoteViews.setTextViewText(R.id.widget_good_name, recipeItem.getName());
-            } else {
-                remoteViews.setTextViewText(R.id.widget_good_name, "Click Me To Launch the App");
-                remoteViews.setOnClickFillInIntent(R.id.widget_good_name, new Intent(getApplicationContext(), MainActivity.class));
-            }
         }
 
         @Override
@@ -56,14 +51,11 @@ public class IngredientsWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getViewAt(int position) {
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredient_individual_view);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_ingredients_list);
             if (recipeItem != null) {
-                remoteViews.setTextViewText(R.id.ingredient_view_amount, String.valueOf(recipeItem.getIngredients().get(position).getQuantity()));
-                remoteViews.setTextViewText(R.id.ingredient_view_measurement, recipeItem.getIngredients().get(position).getMeasure());
-                remoteViews.setTextViewText(R.id.ingredient_view_name, recipeItem.getIngredients().get(position).getName());
-            }
-            else{
-
+                remoteViews.setTextViewText(R.id.ingredient_view_amount_widget, String.valueOf(recipeItem.getIngredients().get(position).getQuantity()));
+                remoteViews.setTextViewText(R.id.ingredient_view_measurement_widget, recipeItem.getIngredients().get(position).getMeasure());
+                remoteViews.setTextViewText(R.id.ingredient_view_name_widget, recipeItem.getIngredients().get(position).getName());
             }
             remoteViews.setOnClickFillInIntent(R.id.ingredient_view_name, new Intent());
             return remoteViews;
