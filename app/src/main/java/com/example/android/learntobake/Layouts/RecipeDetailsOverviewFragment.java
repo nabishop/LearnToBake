@@ -18,6 +18,7 @@ import com.example.android.learntobake.Adapters.RecipeDetailIngredientsAdapter;
 import com.example.android.learntobake.Adapters.RecipeDetailStepsAdapter;
 import com.example.android.learntobake.Models.RecipeItem;
 import com.example.android.learntobake.R;
+import com.example.android.learntobake.Widget.BakeWidgetService;
 
 import butterknife.ButterKnife;
 
@@ -47,6 +48,7 @@ public class RecipeDetailsOverviewFragment extends Fragment {
 
         if (savedInstanceState != null) {
             currentRecipe = savedInstanceState.getParcelable(SAVED_INSTANCE_RECIPE_KEY);
+            BakeWidgetService.startUpdateService(getContext(), currentRecipe);
         } else {
             currentRecipe = getArguments().getParcelable(MainActivity.getRecipeIntentKey());
             System.out.println("CURRENT RECIPE " + currentRecipe);
