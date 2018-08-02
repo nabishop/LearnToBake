@@ -71,6 +71,7 @@ public class BakeWidgetProvider extends AppWidgetProvider {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, BakeWidgetProvider.class));
         if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
             recipeItem = intent.getParcelableExtra(BakeWidgetService.KEY_WIDGET_RECIPE_ITEM);
+            System.out.println("RECIPE ITEM IN ON RECIEVE " + recipeItem);
         }
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list_view);
         onUpdate(context, appWidgetManager, appWidgetIds);

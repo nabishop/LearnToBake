@@ -8,6 +8,7 @@ import com.example.android.learntobake.Adapters.RecipeDetailStepsAdapter;
 import com.example.android.learntobake.Models.RecipeItem;
 import com.example.android.learntobake.Models.Step;
 import com.example.android.learntobake.R;
+import com.example.android.learntobake.Widget.BakeWidgetService;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
         } else {
             currentRecipe = savedInstanceState.getParcelable(RECIPE_BUNDLE_KEY);
         }
+        BakeWidgetService.startUpdateService(getApplicationContext(), currentRecipe);
         setUpFragmentOnCreate();
     }
 
