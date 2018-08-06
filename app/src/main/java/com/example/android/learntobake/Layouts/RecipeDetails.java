@@ -83,6 +83,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
         if (currentRecipe != null) {
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, stepsList);
+            System.out.println("Step index in Details " + stepIndex);
             bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
             if (getResources().getBoolean(R.bool.isTablet)) {
                 RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();

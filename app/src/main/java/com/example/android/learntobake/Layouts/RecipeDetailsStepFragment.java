@@ -73,6 +73,7 @@ public class RecipeDetailsStepFragment extends Fragment {
             steps = getArguments().getParcelableArrayList(RecipeDetails.RECIPE_STEPS_FRAGMENT_BUNDLE_KEY);
             stepIndex = getArguments().getInt(RecipeDetails.RECIPE_STEP_FRAGMENT_NUMBER_KEY);
         } else {
+            System.out.println("INSAVING " + stepIndex);
             steps = savedInstanceState.getParcelableArrayList(SAVED_INSTANCE_STEPS);
             stepIndex = savedInstanceState.getInt(SAVED_INSTANCE_INDEX);
             videoPosition = savedInstanceState.getLong(SAVED_INSTANCE_VIDEOPOS);
@@ -104,8 +105,8 @@ public class RecipeDetailsStepFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Setting onclick listners for button");
-                if (stepIndex > 0 || (stepIndex == 0 && amount > 0)) {
+                System.out.println("Step Index: " + stepIndex);
+                if ((stepIndex == 0 && amount > 0) || (stepIndex > 0 && stepIndex < steps.size() - 1) || (stepIndex == steps.size() - 1 && amount < 0)) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList(RecipeDetails.RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, steps);
                     bundle.putInt(RecipeDetails.RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex + amount);
@@ -123,10 +124,11 @@ public class RecipeDetailsStepFragment extends Fragment {
                                 .commit();
                     }
                 } else {
-                    if (amount > 0) {
-                        Toast.makeText(getContext(), "Already at First Step", Toast.LENGTH_SHORT).show();
+                    if (amount < 0) {
+                        Toast.makeText(getContext(), "Already at the First Step!", Toast.LENGTH_SHORT).show();
+                        stepIndex = 0;
                     } else {
-                        Toast.makeText(getContext(), "At the Last Step", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Already at the Last Step!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -175,9 +177,12 @@ public class RecipeDetailsStepFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        System.out.println("STEP INDEX " + stepIndex);
         outState.putParcelableArrayList(SAVED_INSTANCE_STEPS, steps);
+        System.out.println("OUTSAVING " + stepIndex);
         outState.putInt(SAVED_INSTANCE_INDEX, stepIndex);
         outState.putLong(SAVED_INSTANCE_VIDEOPOS, videoPosition);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

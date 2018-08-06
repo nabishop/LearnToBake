@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     }
 
 
-    private SimpleIdlingResource getIdlingResource() {
+    public SimpleIdlingResource getIdlingResource() {
         if (idlingResource == null) {
             idlingResource = new SimpleIdlingResource();
         }
