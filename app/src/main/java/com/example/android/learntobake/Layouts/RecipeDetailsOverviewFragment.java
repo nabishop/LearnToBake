@@ -79,6 +79,7 @@ public class RecipeDetailsOverviewFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putParcelable(SAVED_INSTANCE_RECIPE_KEY, currentRecipe);
     }
 

@@ -177,12 +177,12 @@ public class RecipeDetailsStepFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
         System.out.println("STEP INDEX " + stepIndex);
         outState.putParcelableArrayList(SAVED_INSTANCE_STEPS, steps);
         System.out.println("OUTSAVING " + stepIndex);
         outState.putInt(SAVED_INSTANCE_INDEX, stepIndex);
         outState.putLong(SAVED_INSTANCE_VIDEOPOS, videoPosition);
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -217,17 +217,11 @@ public class RecipeDetailsStepFragment extends Fragment {
         }
     }
 
-    private void exoPlayerReleaseHelper() {
-        videoPosition = exoPlayer.getCurrentPosition();
-        exoPlayer.stop();
-        exoPlayer.release();
-    }
-
     @Override
     public void onStop() {
         super.onStop();
         if (exoPlayer != null) {
-            exoPlayerReleaseHelper();
+            exoPlayer.release();
         }
     }
 
@@ -235,16 +229,7 @@ public class RecipeDetailsStepFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (exoPlayer != null) {
-            exoPlayerReleaseHelper();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (exoPlayer != null) {
-            exoPlayerReleaseHelper();
-            exoPlayer = null;
+            videoPosition = exoPlayer.getCurrentPosition();
         }
     }
 }

@@ -3,6 +3,7 @@ package com.example.android.learntobake.Layouts;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.android.learntobake.Adapters.RecipeDetailStepsAdapter;
 import com.example.android.learntobake.Models.RecipeItem;
@@ -21,22 +22,27 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
     public static final String TAG_RECIPE_DETAILS_STEP_FRAGMENT = "recipe-details-step-fragment";
 
     private RecipeItem currentRecipe;
+    private int stepIndex;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(RECIPE_BUNDLE_KEY, currentRecipe);
         super.onSaveInstanceState(outState);
+        outState.putParcelable(RECIPE_BUNDLE_KEY, currentRecipe);
+        outState.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+        Log.d("Recipe Details Saved", "SAVED INSTANCE STATE " + savedInstanceState);
 
         if (savedInstanceState == null) {
             currentRecipe = getIntent().getExtras().getParcelable(RECIPE_INTENT_KEY);
+            stepIndex = 0;
         } else {
             currentRecipe = savedInstanceState.getParcelable(RECIPE_BUNDLE_KEY);
+            stepIndex = savedInstanceState.getInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY);
         }
         // Widget Update
         BakeWidgetService.startUpdateService(getApplicationContext(), currentRecipe);
@@ -60,7 +66,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
         if (getResources().getBoolean(R.bool.isTablet)) {
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, currentRecipe.getSteps());
-            bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, 0);
+            bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
             RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
             recipeDetailsStepFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
@@ -84,6 +90,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, stepsList);
             System.out.println("Step index in Details " + stepIndex);
+            this.stepIndex = stepIndex;
             bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
             if (getResources().getBoolean(R.bool.isTablet)) {
                 RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
