@@ -1,5 +1,7 @@
 package com.example.android.learntobake.Layouts;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +44,7 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             stepIndex = 0;
         } else {
             currentRecipe = savedInstanceState.getParcelable(RECIPE_BUNDLE_KEY);
+
             stepIndex = savedInstanceState.getInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY);
         }
         // Widget Update
@@ -64,14 +67,16 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
                     .commit();
         }
         if (getResources().getBoolean(R.bool.isTablet)) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, currentRecipe.getSteps());
-            bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
-            RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
-            recipeDetailsStepFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.recipe_detail_steps_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
-                    .commit();
+            if (getSupportFragmentManager().findFragmentByTag(TAG_RECIPE_DETAILS_STEP_FRAGMENT) == null && currentRecipe != null) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(RECIPE_STEPS_FRAGMENT_BUNDLE_KEY, currentRecipe.getSteps());
+                bundle.putInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY, stepIndex);
+                RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
+                recipeDetailsStepFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.recipe_detail_steps_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
+                        .commit();
+            }
         }
     }
 
@@ -97,14 +102,16 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
                 recipeDetailsStepFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.recipe_detail_steps_container,
                         recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT).commit();
-            } else {
+                return;
+            }
+            if (getSupportFragmentManager().findFragmentByTag(TAG_RECIPE_DETAILS_STEP_FRAGMENT) == null) {
                 RecipeDetailsStepFragment recipeDetailsStepFragment = new RecipeDetailsStepFragment();
                 recipeDetailsStepFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.recipe_detail_container, recipeDetailsStepFragment, TAG_RECIPE_DETAILS_STEP_FRAGMENT)
                         .addToBackStack("new step").commit();
             }
+
         }
     }
-
 
 }

@@ -62,6 +62,18 @@ public class RecipeDetailsStepFragment extends Fragment {
     private boolean fullscreen;
     TextView description;
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            steps = savedInstanceState.getParcelableArrayList(SAVED_INSTANCE_STEPS);
+            stepIndex = savedInstanceState.getInt(SAVED_INSTANCE_INDEX);
+            System.out.println("INSAVING " + stepIndex);
+            Log.d("Video Position OnCr", "" + videoPosition);
+            videoPosition = savedInstanceState.getLong(SAVED_INSTANCE_VIDEOPOS);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,9 +85,10 @@ public class RecipeDetailsStepFragment extends Fragment {
             steps = getArguments().getParcelableArrayList(RecipeDetails.RECIPE_STEPS_FRAGMENT_BUNDLE_KEY);
             stepIndex = getArguments().getInt(RecipeDetails.RECIPE_STEP_FRAGMENT_NUMBER_KEY);
         } else {
-            System.out.println("INSAVING " + stepIndex);
             steps = savedInstanceState.getParcelableArrayList(SAVED_INSTANCE_STEPS);
             stepIndex = savedInstanceState.getInt(SAVED_INSTANCE_INDEX);
+            System.out.println("INSAVING " + stepIndex);
+            Log.d("Video Position OnCr", "" + videoPosition);
             videoPosition = savedInstanceState.getLong(SAVED_INSTANCE_VIDEOPOS);
         }
 
@@ -229,7 +242,16 @@ public class RecipeDetailsStepFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (exoPlayer != null) {
+            System.out.println("Video Position " + videoPosition);
             videoPosition = exoPlayer.getCurrentPosition();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (exoPlayer != null) {
+            exoPlayer = null;
         }
     }
 }
