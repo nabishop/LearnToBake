@@ -44,7 +44,6 @@ public class RecipeDetails extends AppCompatActivity implements RecipeDetailStep
             stepIndex = 0;
         } else {
             currentRecipe = savedInstanceState.getParcelable(RECIPE_BUNDLE_KEY);
-
             stepIndex = savedInstanceState.getInt(RECIPE_STEP_FRAGMENT_NUMBER_KEY);
         }
         // Widget Update

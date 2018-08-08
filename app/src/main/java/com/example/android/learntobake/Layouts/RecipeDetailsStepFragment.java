@@ -223,8 +223,8 @@ public class RecipeDetailsStepFragment extends Fragment {
                 fullScreenDialog.addContentView(exoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 fullScreenDialog.show();
             }
-            exoPlayer.seekTo(videoPosition);
             exoPlayer.prepare(source);
+            exoPlayer.seekTo(videoPosition);
             exoPlayer.setPlayWhenReady(true);
             exoPlayerView.hideController();
         }
@@ -234,6 +234,7 @@ public class RecipeDetailsStepFragment extends Fragment {
     public void onStop() {
         super.onStop();
         if (exoPlayer != null) {
+            exoPlayer.stop();
             exoPlayer.release();
         }
     }
@@ -244,14 +245,8 @@ public class RecipeDetailsStepFragment extends Fragment {
         if (exoPlayer != null) {
             System.out.println("Video Position " + videoPosition);
             videoPosition = exoPlayer.getCurrentPosition();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (exoPlayer != null) {
-            exoPlayer = null;
+            exoPlayer.stop();
+            exoPlayer.release();
         }
     }
 }
